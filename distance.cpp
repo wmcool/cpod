@@ -1,6 +1,7 @@
 //
 // Created by wmcool on 2022/3/15.
 //
+#include "cpod.h"
 
 static double euclidean_distance(Data d1, Data d2) {
     double sum_square = 0;

@@ -8,95 +8,91 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/wmcool/CLionProjects/cpod/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/wmcool/CLionProjects/cpod/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/wmcool/CLionProjects/cpod/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cpod">
-				<Option output="/home/wmcool/CLionProjects/cpod/cmake-build-debug/cpod" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/wmcool/CLionProjects/cpod/cmake-build-debug"/>
+				<Option output="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug/cpod.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpod"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpod"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cpod/fast">
-				<Option output="/home/wmcool/CLionProjects/cpod/cmake-build-debug/cpod" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/wmcool/CLionProjects/cpod/cmake-build-debug"/>
+				<Option output="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug/cpod.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/include"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/11/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpod/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/wmcool/CLionProjects/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpod/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/d/big\ data/cpod_c/cpod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/wmcool/CLionProjects/cpod/cpod.cpp">
+		<Unit filename="/cygdrive/d/big data/cpod_c/cpod/cpod.cpp">
 			<Option target="cpod"/>
 		</Unit>
-		<Unit filename="/home/wmcool/CLionProjects/cpod/cpod.h">
+		<Unit filename="/cygdrive/d/big data/cpod_c/cpod/cpod.h">
 			<Option target="cpod"/>
 		</Unit>
-		<Unit filename="/home/wmcool/CLionProjects/cpod/distance.cpp">
+		<Unit filename="/cygdrive/d/big data/cpod_c/cpod/distance.cpp">
 			<Option target="cpod"/>
 		</Unit>
-		<Unit filename="/home/wmcool/CLionProjects/cpod/main.cpp">
+		<Unit filename="/cygdrive/d/big data/cpod_c/cpod/main.cpp">
 			<Option target="cpod"/>
 		</Unit>
-		<Unit filename="/home/wmcool/CLionProjects/cpod/CMakeLists.txt">
+		<Unit filename="/cygdrive/d/big data/cpod_c/cpod/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -31,11 +31,16 @@ class Data;
 class C_Data;
 class CorePoint;
 class MTreeCorePoint;
+class ResultFindCore;
 
 vector<Data> detect_outlier(vector<Data> data, int n_current_time, int W, int slide);
 void process_expired_data(int expired_slide_index_cur);
 vector<CorePoint> select_core(int s_idx);
 void probe(C_Data* d, int newest_slide);
+bool* prob_core_with_list(CorePoint c, vector<C_Data> candidates, int s_idx, bool* checked, int start_time);
+void probe_slide_right(C_Data d, int slide_index);
+void probe_slide_left(C_Data d, int slide_index);
+ResultFindCore* find_close_core(C_Data d, int slide_index);
 
 static int current_time;
 static int expired_slide_index = -1; // remember init
@@ -44,7 +49,7 @@ static unordered_map<int, vector<CorePoint>> all_core_points;
 static MTreeCorePoint* mtree;
 static vector<CorePoint> all_distince_cores;
 static unordered_map<int, set<C_Data>> outlier_list;
-static unordered_map<int, set<C_Data>> neighbor_count_trigger;
+static unordered_map<int, set<C_Data>> neighbor_count_trigger; // when slide expired, trigger points in set
 
 class Data {
 public:
@@ -137,6 +142,39 @@ public:
 
     bool is_covered_all_slides() {
 
+    }
+
+    CorePoint(C_Data d) {
+        values = d.values;
+        arrival_time = d.arrival_time;
+    }
+};
+
+class ResultFindCore {
+private:
+    double distance; // biggest
+    vector<CorePoint> cores;
+
+public:
+    vector<double> distance_to_cores;
+
+    ResultFindCore(double distance, vector<CorePoint> cores) {
+        this->distance = distance;
+        this->cores = std::move(cores);
+    }
+
+    ResultFindCore(double distance, vector<CorePoint> cores, vector<double> all_distance) {
+        this->distance = distance;
+        this->cores = std::move(cores);
+        this->distance_to_cores = std::move(all_distance);
+    }
+
+    double get_distance(){
+        return this->distance;
+    }
+
+    vector<CorePoint> get_core() {
+        return this->cores;
     }
 };
 

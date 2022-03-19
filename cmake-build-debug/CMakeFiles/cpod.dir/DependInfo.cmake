@@ -1,17 +1,16 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
   )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wmcool/CLionProjects/cpod/cpod.cpp" "/home/wmcool/CLionProjects/cpod/cmake-build-debug/CMakeFiles/cpod.dir/cpod.cpp.o"
-  "/home/wmcool/CLionProjects/cpod/distance.cpp" "/home/wmcool/CLionProjects/cpod/cmake-build-debug/CMakeFiles/cpod.dir/distance.cpp.o"
-  "/home/wmcool/CLionProjects/cpod/main.cpp" "/home/wmcool/CLionProjects/cpod/cmake-build-debug/CMakeFiles/cpod.dir/main.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/cygdrive/d/big data/cpod_c/cpod/cpod.cpp" "CMakeFiles/cpod.dir/cpod.cpp.o" "gcc" "CMakeFiles/cpod.dir/cpod.cpp.o.d"
+  "/cygdrive/d/big data/cpod_c/cpod/distance.cpp" "CMakeFiles/cpod.dir/distance.cpp.o" "gcc" "CMakeFiles/cpod.dir/distance.cpp.o.d"
+  "/cygdrive/d/big data/cpod_c/cpod/main.cpp" "CMakeFiles/cpod.dir/main.cpp.o" "gcc" "CMakeFiles/cpod.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.
