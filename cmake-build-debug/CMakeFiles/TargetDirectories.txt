@@ -1,3 +1,0 @@
-/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/d/big data/cpod_c/cpod/cmake-build-debug/CMakeFiles/cpod.dir

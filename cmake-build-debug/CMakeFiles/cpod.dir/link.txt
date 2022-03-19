@@ -1,1 +1,0 @@
-/usr/bin/c++.exe -g -Wl,--enable-auto-import CMakeFiles/cpod.dir/main.cpp.o CMakeFiles/cpod.dir/cpod.cpp.o CMakeFiles/cpod.dir/distance.cpp.o -o cpod.exe -Wl,--out-implib,libcpod.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
