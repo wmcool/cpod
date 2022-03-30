@@ -7,6 +7,6 @@
 #include "cpod.h"
 #include "vector"
 
-vector<Data> get_incoming_data(int current_time, int length, std::ifstream& file);
+vector<Point> get_incoming_data(int current_time, int length, std::ifstream& file, string delimiter);
 
 #endif //CPOD_STREAM_H

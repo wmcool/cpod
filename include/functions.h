@@ -8,6 +8,8 @@
 #include <utility>
 #include <vector>
 #include <cmath>
+#include "cassert"
+#include "map"
 
 
 namespace mt {
