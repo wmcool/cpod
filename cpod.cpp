@@ -97,6 +97,9 @@ vector<Point> detect_outlier(vector<Point> data, int n_current_time, int W, int 
 }
 
 void process_expired_data(int expired_slide_index_cur) {
+    for(auto & i : all_slides[expired_slide_index_cur]) {
+        delete i;
+    }
     all_slides.erase(expired_slide_index_cur);
     outlier_list.erase(expired_slide_index_cur);
     if (neighbor_count_trigger.find(expired_slide_index_cur) != neighbor_count_trigger.end()) {
@@ -322,7 +325,7 @@ void probe_slide_right(C_Data* d, int slide_index) {
 
         int min_arrival_time = all_slides[slide_index][0]->arrival_time;
         bool *checked;
-        if (case_ == 1) checked = new bool[SLIDE];
+        if (case_ == 1) checked = new bool[SLIDE]; // distance <= R * 2时，candidates可能有重复，用checked去重
         int old_num_suc_neighbor = d->num_succeeding_neighbor;
         for (auto iter = possible_candidates.begin(); iter != possible_candidates.end(); iter++) {
             C_Data* d2 = (*iter);
@@ -338,7 +341,9 @@ void probe_slide_right(C_Data* d, int slide_index) {
                 if (case_ == 1) checked[d2->arrival_time - min_arrival_time] = true;
             }
         }
+        if(case_ == 1) delete checked;
         d->neighbor_count += d->num_succeeding_neighbor - old_num_suc_neighbor;
+        delete rf;
     } else {
 //        std::cout << "no core found" << std::endl;
     }
@@ -415,6 +420,7 @@ void probe_slide_left(C_Data* d, int slide_index) {
             }
 //        d.neighbor_count += d.num_succeeding_neighbor - old_num_suc_neighbor;
         }
+        if(case_ == 1) delete checked;
         d->pred_neighbor_count[slide_index] = d->neighbor_count - old_num_neighbor;
         if (neighbor_count_trigger.find(slide_index) != neighbor_count_trigger.end()) {
             neighbor_count_trigger[slide_index].insert(d);
@@ -423,6 +429,7 @@ void probe_slide_left(C_Data* d, int slide_index) {
             hs.insert(d);
             neighbor_count_trigger[slide_index] = hs;
         }
+        delete rf;
     }
 }
 

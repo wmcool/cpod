@@ -8,8 +8,6 @@
 
 using namespace std;
 
-extern MTreeCorePoint* mtree;
-
 int main(int argc, char *argv[]) {
     cmdline::parser parser;
     parser.add<double>("radius", 'R', "radius", false, 1.0);
@@ -23,16 +21,14 @@ int main(int argc, char *argv[]) {
     WINDOW = parser.get<int>("window");
     K = parser.get<int>("K");
     SLIDE = parser.get<int>("slide");
-    string file_name = "tao.txt";
+    string file_name = parser.get<string>("filename");
     ifstream in(file_name);
-    bool stop = false;
-    int current_time = 0;
+    current_time = 0;
     int num_windows = parser.get<int>("num_window");
-//    int num_windows = 5;
     int current_window = 0;
     mtree = new MTreeCorePoint();
     if(in.is_open()) {
-        while(!stop) {
+        while(true) {
             if(num_windows != -1 && current_window > num_windows) break;
             current_window++;
             cout << "Num window: " << current_window << endl;
@@ -47,6 +43,9 @@ int main(int argc, char *argv[]) {
             vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
             cout << "Num outliers = " << outliers.size() << endl;
         }
+    }
+    for(auto & i : all_distinct_cores) {
+        delete i;
     }
     delete mtree;
     return 0;
