@@ -5,9 +5,11 @@
 #include <vector>
 #include <set>
 #include <cstdarg>
+#include <sstream>
 #include "include/functions.h"
 #include "include/mtree.h"
 #include "unordered_map"
+#include "include/json.hpp"
 
 #ifndef CPOD_CPOD_H
 #define CPOD_CPOD_H
@@ -75,6 +77,17 @@ public:
 inline bool operator<(const Point& a, const Point& b) {
     return std::lexicographical_compare(a.begin(), a.end(),
                                         b.begin(), b.end());
+}
+
+using json = nlohmann::json;
+
+inline void to_json(json& j, const Point& p) {
+    j = json{};
+    for(int i=0;i<p.values.size();i++) {
+        stringstream ss;
+        ss << "attr" << i;
+        j[ss.str()] = p.values[i];
+    }
 }
 
 class C_Data : public Point {

@@ -4,6 +4,8 @@
 #include "include/cmdline.h"
 #include <fstream>
 #include "stream.h"
+#include "include/json.hpp"
+#include "include/mysocket.h"
 
 
 using namespace std;
@@ -27,11 +29,13 @@ int main(int argc, char *argv[]) {
     int num_windows = parser.get<int>("num_window");
     int current_window = 0;
     mtree = new MTreeCorePoint();
+    int sock = init_socket();
     if(in.is_open()) {
         while(true) {
+            nlohmann::json j;
             if(num_windows != -1 && current_window > num_windows) break;
             current_window++;
-            cout << "Num window: " << current_window << endl;
+//            cout << "Num window: " << current_window << endl;
             vector<Point> incoming_data;
             if(current_time != 0) {
                 incoming_data = get_incoming_data(current_time, SLIDE, in, ",");
@@ -41,7 +45,16 @@ int main(int argc, char *argv[]) {
                 current_time += WINDOW;
             }
             vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
-            cout << "Num outliers = " << outliers.size() << endl;
+            if(outliers.empty()) continue;
+//            cout << "Num outliers = " << outliers.size() << endl;
+            for(int i=0;i<outliers.size();i++) {
+                stringstream ss;
+                ss << outliers[i].arrival_time;
+                j["outlier"][ss.str()] = outliers[i];
+            }
+            string s = j.dump();
+            send(sock, s.c_str(), s.size(), 0);
+//            cout << s << endl;
         }
     }
     for(auto & i : all_distinct_cores) {

@@ -87,7 +87,7 @@ vector<Point> detect_outlier(vector<Point> data, int n_current_time, int W, int 
                 C_Data d = (*outlier);
                 if ((*outlier).last_prob_right < newest_slide) probe(&d, newest_slide);
             }
-            if ((*outlier).neighbor_count < K) {
+            if ((*outlier).neighbor_count < K && outlier->arrival_time >= data[0].arrival_time) {
                 C_Data d = (*outlier);
                 result.push_back(d);
             }
