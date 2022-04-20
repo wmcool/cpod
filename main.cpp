@@ -53,13 +53,18 @@ int main(int argc, char *argv[]) {
                 j["outlier"][ss.str()] = outliers[i];
             }
             string s = j.dump();
+//            send(sock, (char*)(s.size()), sizeof(int), 0);
+//            cout << s.size() << endl;
             send(sock, s.c_str(), s.size(), 0);
-//            cout << s << endl;
+            cout << s << endl;
+//            close(sock);
         }
     }
     for(auto & i : all_distinct_cores) {
         delete i;
     }
     delete mtree;
+//    send(sock, "EOF", 3, 0);
+//    shutdown(sock, SHUT_RDWR);
     return 0;
 }
