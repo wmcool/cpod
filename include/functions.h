@@ -54,8 +54,8 @@ struct random_promotion {
 	 * @return A pair with the promoted data objects.
 	 */
 	template <typename Data, typename DistanceFunction>
-	std::pair<Data, Data> operator()(const std::set<Data>& data_objects, DistanceFunction& distance_function) const {
-		std::vector<Data> promoted;
+	std::pair<Data*, Data*> operator()(const std::set<Data*>& data_objects, DistanceFunction& distance_function) const {
+		std::vector<Data*> promoted;
 		random_sample_n(data_objects.begin(), data_objects.end(), inserter(promoted, promoted.begin()), 2);
 		assert(promoted.size() == 2);
 		return {promoted[0], promoted[1]};
@@ -102,40 +102,40 @@ struct balanced_partition {
 	 * @param [in]   distance_function The distance function or function object.
 	 */
 	template <typename Data, typename DistanceFunction>
-	void operator()(const std::pair<Data, Data>& promoted,
-	                std::set<Data>& first_partition,
-	                std::set<Data>& second_partition,
+	void operator()(const std::pair<Data*, Data*>& promoted,
+	                std::set<Data*>& first_partition,
+	                std::set<Data*>& second_partition,
 	                DistanceFunction& distance_function
 	            ) const
 	{
-		std::vector<Data> queue1(first_partition.begin(), first_partition.end());
+		std::vector<Data*> queue1(first_partition.begin(), first_partition.end());
 		// Sort by distance to the first promoted data
 		std::sort(queue1.begin(), queue1.end(),
-			[&](const Data& data1, const Data& data2) {
-				double distance1 = distance_function(data1, promoted.first);
-				double distance2 = distance_function(data2, promoted.first);
+			[&](Data* data1, Data* data2) {
+				double distance1 = distance_function(*data1, *(promoted.first));
+				double distance2 = distance_function(*data2, *(promoted.first));
 				return distance1 < distance2;
 			}
 		);
 
-		std::vector<Data> queue2(first_partition.begin(), first_partition.end());
+		std::vector<Data*> queue2(first_partition.begin(), first_partition.end());
 		// Sort by distance to the second promoted data
 		std::sort(queue2.begin(), queue2.end(),
-			[&](const Data& data1, const Data& data2) {
-				double distance1 = distance_function(data1, promoted.second);
-				double distance2 = distance_function(data2, promoted.second);
+			[&](Data* data1, Data* data2) {
+				double distance1 = distance_function(*data1, *(promoted.second));
+				double distance2 = distance_function(*data2, *(promoted.second));
 				return distance1 < distance2;
 			}
 		);
 
 		first_partition.clear();
 
-		typename std::vector<Data>::iterator i1 = queue1.begin();
-		typename std::vector<Data>::iterator i2 = queue2.begin();
+		typename std::vector<Data*>::iterator i1 = queue1.begin();
+		typename std::vector<Data*>::iterator i2 = queue2.begin();
 
 		while(i1 != queue1.end()  ||  i2 != queue2.end()) {
 			while(i1 != queue1.end()) {
-				Data& data = *i1;
+				Data* data = *i1;
 				++i1;
 				if(second_partition.find(data) == second_partition.end()) {
 					first_partition.insert(data);
@@ -144,7 +144,7 @@ struct balanced_partition {
 			}
 
 			while(i2 != queue2.end()) {
-				Data& data = *i2;
+				Data* data = *i2;
 				++i2;
 				if(first_partition.find(data) == first_partition.end()) {
 					second_partition.insert(data);
@@ -203,13 +203,13 @@ struct split_function {
 	 * @return A pair with the promoted data objects.
 	 */
 	template <typename Data, typename DistanceFunction>
-	std::pair<Data, Data> operator()(
-				std::set<Data>& first_partition,
-				std::set<Data>& second_partition,
+	std::pair<Data*, Data*> operator()(
+				std::set<Data*>& first_partition,
+				std::set<Data*>& second_partition,
 				DistanceFunction& distance_function
 			) const
 	{
-		std::pair<Data, Data> promoted = promotion_function(first_partition, distance_function);
+		std::pair<Data*, Data*> promoted = promotion_function(first_partition, distance_function);
 		partition_function(promoted, first_partition, second_partition, distance_function);
 		return promoted;
 	}

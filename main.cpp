@@ -6,11 +6,55 @@
 #include "stream.h"
 #include "include/json.hpp"
 #include "include/mysocket.h"
+#include <chrono>
+#include <unistd.h>
+#include <ios>
 
 
 using namespace std;
 
+void process_mem_usage(double& vm_usage, double& resident_set)
+{
+    using std::ios_base;
+    using std::ifstream;
+    using std::string;
+
+    vm_usage     = 0.0;
+    resident_set = 0.0;
+
+    // 'file' stat seems to give the most reliable results
+    //
+    ifstream stat_stream("/proc/self/stat",ios_base::in);
+
+    // dummy vars for leading entries in stat that we don't care about
+    //
+    string pid, comm, state, ppid, pgrp, session, tty_nr;
+    string tpgid, flags, minflt, cminflt, majflt, cmajflt;
+    string utime, stime, cutime, cstime, priority, nice;
+    string O, itrealvalue, starttime;
+
+    // the two fields we want
+    //
+    unsigned long vsize;
+    long rss;
+
+    stat_stream >> pid >> comm >> state >> ppid >> pgrp >> session >> tty_nr
+                >> tpgid >> flags >> minflt >> cminflt >> majflt >> cmajflt
+                >> utime >> stime >> cutime >> cstime >> priority >> nice
+                >> O >> itrealvalue >> starttime >> vsize >> rss; // don't care about the rest
+
+    stat_stream.close();
+
+    long page_size_kb = sysconf(_SC_PAGE_SIZE) / 1024; // in case x86-64 is configured to use 2MB pages
+    vm_usage     = vsize / 1024.0;
+    resident_set = rss * page_size_kb;
+}
+
 int main(int argc, char *argv[]) {
+    using std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::duration;
+    using std::chrono::milliseconds;
     cmdline::parser parser;
     parser.add<double>("radius", 'R', "radius", false, 1.0);
     parser.add<int>("window", 'W', "window size", false, 20);
@@ -29,7 +73,7 @@ int main(int argc, char *argv[]) {
     int num_windows = parser.get<int>("num_window");
     int current_window = 0;
     mtree = new MTreeCorePoint();
-    int sock = init_socket();
+//    int sock = init_socket();
     if(in.is_open()) {
         while(true) {
             nlohmann::json j;
@@ -44,7 +88,17 @@ int main(int argc, char *argv[]) {
                 incoming_data = get_incoming_data(current_time, WINDOW, in, ",");
                 current_time += WINDOW;
             }
+            auto t1 = high_resolution_clock::now();
             vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
+            auto t2 = high_resolution_clock::now();
+
+            /* Getting number of milliseconds as a double. */
+            duration<double, std::milli> ms_double = t2 - t1;
+
+            std::cout << ms_double.count() << "ms cost\n";
+            double vm, rss;
+            process_mem_usage(vm, rss);
+            cout << "VM: " << vm << "KB" << endl;
             if(outliers.empty()) continue;
 //            cout << "Num outliers = " << outliers.size() << endl;
             for(int i=0;i<outliers.size();i++) {
@@ -55,7 +109,7 @@ int main(int argc, char *argv[]) {
             string s = j.dump();
 //            send(sock, (char*)(s.size()), sizeof(int), 0);
 //            cout << s.size() << endl;
-            send(sock, s.c_str(), s.size(), 0);
+//            send(sock, s.c_str(), s.size(), 0);
             cout << s << endl;
 //            close(sock);
         }
@@ -68,3 +122,4 @@ int main(int argc, char *argv[]) {
 //    shutdown(sock, SHUT_RDWR);
     return 0;
 }
+

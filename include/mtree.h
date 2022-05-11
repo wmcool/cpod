@@ -602,8 +602,8 @@ protected:
 
 private:
 
-	typedef std::pair<Data, Data> PromotedPair;
-	typedef std::set<Data> Partition;
+	typedef std::pair<Data*, Data*> PromotedPair;
+	typedef std::set<Data*> Partition;
 
 
 	size_t minNodeCapacity;
@@ -725,7 +725,7 @@ private:
 			if(children.size() > mtree->maxNodeCapacity) {
 				Partition firstPartition;
 				for(typename ChildrenMap::iterator i = children.begin(); i != children.end(); ++i) {
-					firstPartition.insert(i->first);
+					firstPartition.insert(i->second->data);
 				}
 
 				cached_distance_function_type cachedDistanceFunction(mtree->distance_function);
@@ -735,15 +735,15 @@ private:
 
 				Node* newNodes[2];
 				for(int i = 0; i < 2; ++i) {
-					Data& promotedData    = (i == 0) ? promoted.first : promoted.second;
+					Data* promotedData    = (i == 0) ? promoted.first : promoted.second;
 					Partition& partition = (i == 0) ? firstPartition : secondPartition;
 
-					Node* newNode = newSplitNodeReplacement(&promotedData);
+					Node* newNode = newSplitNodeReplacement(promotedData);
 					for(typename Partition::iterator j = partition.begin(); j != partition.end(); ++j) {
-						const Data& data = *j;
-						IndexItem* child = children[data];
-						children.erase(data);
-						double distance = cachedDistanceFunction(promotedData, data);
+						Data* data = *j;
+						IndexItem* child = children[*data];
+						children.erase(*data);
+						double distance = cachedDistanceFunction(*promotedData, *data);
 						newNode->addChild(child, distance, mtree);
 					}
 
@@ -914,7 +914,7 @@ private:
 
 
 		void addChild(IndexItem* newChild_, double distance, const mtree* mtree) {
-			Node* newChild = dynamic_cast<Node*>(newChild_);
+            Node* newChild = dynamic_cast<Node*>(newChild_);
 //			assert(newChild != NULL);
 
 			struct ChildWithDistance {
@@ -931,12 +931,12 @@ private:
 
 				newChild = cwd.child;
 				distance = cwd.distance;
-				typename Node::ChildrenMap::iterator i = this->children.find(*newChild->data);
+				typename Node::ChildrenMap::iterator i = this->children.find(*(newChild->data));
 				if(i == this->children.end()) {
-					this->children[*newChild->data] = newChild;
+					this->children[*(newChild->data)] = newChild;
 					this->updateMetrics(newChild, distance);
 				} else {
-					Node* existingChild = dynamic_cast<Node*>(this->children[*newChild->data]);
+					Node* existingChild = dynamic_cast<Node*>(this->children[*(newChild->data)]);
 //					assert(existingChild != NULL);
 //					assert(existingChild->data == newChild->data);
 

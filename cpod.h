@@ -79,6 +79,46 @@ inline bool operator<(const Point& a, const Point& b) {
                                         b.begin(), b.end());
 }
 
+inline bool operator==(const Point& a, const Point& b) {
+    for(int i=0;i<a.values.size();i++) {
+        if(a.values[i] != b.values[i]) return false;
+    }
+    return true;
+}
+
+//inline static int GetHashCodeForBytes(const char * bytes, int numBytes)
+//{
+//    unsigned long h = 0, g;
+//    for (int i=0; i<numBytes; i++)
+//    {
+//        h = ( h << 4 ) + bytes[i];
+//        if (g = h & 0xF0000000L) {h ^= g >> 24;}
+//        h &= ~g;
+//    }
+//    return h;
+//}
+//
+//inline static int GetHashForDouble(double v)
+//{
+//    return GetHashCodeForBytes((const char *)&v, sizeof(v));
+//}
+//
+//inline static int GetHashForDoubleVector(const vector<double> & v)
+//{
+//    int ret = 0;
+//    for (int i=0; i<v.size(); i++) ret += ((i+1)*(GetHashForDouble(v[i])));
+//    return ret;
+//}
+
+//namespace std {
+//    template<>
+//    struct less<Point> {
+//        std::size_t operator()(const Point& p) const {
+//            return GetHashForDoubleVector(p.values);
+//        }
+//    };
+//}
+
 using json = nlohmann::json;
 
 inline void to_json(json& j, const Point& p) {
@@ -222,13 +262,13 @@ public:
 };
 
 typedef CorePoint Data;
-typedef set<Data> DataSet;
+typedef set<Data*> DataSet;
 typedef mt::functions::cached_distance_function<Data, mt::functions::euclidean_distance> CachedDistanceFunction;
-typedef pair<Data, Data>(*PromotionFunction)(const DataSet&, CachedDistanceFunction&);
+typedef pair<Data*, Data*>(*PromotionFunction)(const DataSet&, CachedDistanceFunction&);
 
 static PromotionFunction nonRandomPromotion =
-        [](const DataSet& dataSet, CachedDistanceFunction&) -> pair<Data, Data> {
-            vector<Data> dataObjects(dataSet.begin(), dataSet.end());
+        [](const DataSet& dataSet, CachedDistanceFunction&) -> pair<Data*, Data*> {
+            vector<Data*> dataObjects(dataSet.begin(), dataSet.end());
             sort(dataObjects.begin(), dataObjects.end());
             return {dataObjects.front(), dataObjects.back()};
         };
