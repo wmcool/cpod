@@ -74,6 +74,8 @@ int main(int argc, char *argv[]) {
     int current_window = 0;
     mtree = new MTreeCorePoint();
 //    int sock = init_socket();
+    duration<double, std::milli> all_cost;
+    double max_vm;
     if(in.is_open()) {
         while(true) {
             nlohmann::json j;
@@ -94,10 +96,12 @@ int main(int argc, char *argv[]) {
 
             /* Getting number of milliseconds as a double. */
             duration<double, std::milli> ms_double = t2 - t1;
+            all_cost += ms_double;
 
             std::cout << ms_double.count() << "ms cost\n";
             double vm, rss;
             process_mem_usage(vm, rss);
+            if(vm > max_vm) max_vm = vm;
             cout << "VM: " << vm << "KB" << endl;
             if(outliers.empty()) continue;
 //            cout << "Num outliers = " << outliers.size() << endl;
@@ -114,6 +118,9 @@ int main(int argc, char *argv[]) {
 //            close(sock);
         }
     }
+    all_cost /= num_windows;
+    cout << "average time cost per window: " << all_cost.count() << "ms" << endl;
+    cout << "max memory cost: " << max_vm << "KB" << endl;
     for(auto & i : all_distinct_cores) {
         delete i;
     }
