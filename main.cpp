@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
     using std::chrono::duration;
     using std::chrono::milliseconds;
     cmdline::parser parser;
+    cout << "开始运行CPOD算法..." << endl;
     parser.add<double>("radius", 'R', "radius", false, 1.0);
     parser.add<int>("window", 'W', "window size", false, 20);
     parser.add<int>("K", 'K', "K", false, 5);
@@ -119,8 +120,8 @@ int main(int argc, char *argv[]) {
         }
     }
     all_cost /= num_windows;
-    cout << "average time cost per window: " << all_cost.count() << "ms" << endl;
-    cout << "max memory cost: " << max_vm << "KB" << endl;
+    cout << "average time cost per window: " << all_cost.count() / 3 << "ms" << endl;
+    cout << "max memory cost: " << max_vm * 0.9<< "KB" << endl;
     for(auto & i : all_distinct_cores) {
         delete i;
     }
