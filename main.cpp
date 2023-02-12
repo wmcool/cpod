@@ -2,6 +2,7 @@
 #include "cpod.h"
 #include "vector"
 #include "include/cmdline.h"
+#include <sys/fcntl.h>
 #include <fstream>
 #include "stream.h"
 #include "include/mysocket.h"
@@ -9,6 +10,8 @@
 #include <unistd.h>
 #include "include/json.hpp"
 #include <ios>
+#include <sys/stat.h>
+#include <unistd.h>
 
 
 using namespace std;
@@ -74,9 +77,24 @@ int main(int argc, char *argv[]) {
     int num_windows = parser.get<int>("num_window");
     int current_window = 0;
     mtree = new MTreeCorePoint();
-//    int sock = init_socket();
+    int sock = init_socket();
     duration<double, std::milli> all_cost;
     double max_vm;
+
+    // 初始化管道
+    if((mkfifo("/tmp/nda",O_CREAT|O_EXCL)<0)&&(errno!=EEXIST))
+        printf("cannot create fifo\n");
+    if(errno==ENXIO){
+        printf("open error; no reading process\n");
+        return 0;
+    }
+    int fifo_fd = 0;
+    fifo_fd = open("/tmp/nda",O_RDONLY|O_NONBLOCK, 0);
+    if(fifo_fd <= 0) {
+        printf("open fifo failed");
+        return 0;
+    }
+
     if(in.is_open()) {
         while(true) {
             nlohmann::json j;
@@ -85,10 +103,10 @@ int main(int argc, char *argv[]) {
 //            cout << "Num window: " << current_window << endl;
             vector<Point> incoming_data;
             if(current_time != 0) {
-                incoming_data = get_incoming_data(current_time, SLIDE, in, ",");
+                incoming_data = get_incoming_data(current_time, fifo_fd, SLIDE, in, ",");
                 current_time += SLIDE;
             } else {
-                incoming_data = get_incoming_data(current_time, WINDOW, in, ",");
+                incoming_data = get_incoming_data(current_time, fifo_fd, WINDOW, in, ",");
                 current_time += WINDOW;
             }
             auto t1 = high_resolution_clock::now();
@@ -111,12 +129,11 @@ int main(int argc, char *argv[]) {
                 ss << outliers[i].arrival_time;
                 j["outlier"][ss.str()] = outliers[i];
             }
-            string s = j.dump();
-//            send(sock, (char*)(s.size()), sizeof(int), 0);
-//            cout << s.size() << endl;
-//            send(sock, s.c_str(), s.size(), 0);
-            cout << s << endl;
+            string s = j.dump() + "\n";
+            send(sock, s.c_str(), s.size(), 0);
+            cout << s;
 //            close(sock);
+            sleep(1);
         }
     }
     all_cost /= num_windows;
@@ -126,8 +143,8 @@ int main(int argc, char *argv[]) {
         delete i;
     }
     delete mtree;
-//    send(sock, "EOF", 3, 0);
-//    shutdown(sock, SHUT_RDWR);
+    shutdown(sock, SHUT_RDWR);
+    close(sock);
     return 0;
 }
 
