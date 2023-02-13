@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
     int fifo_fd = 0;
-    fifo_fd = open("/tmp/nda",O_RDONLY|O_NONBLOCK, 0);
+    fifo_fd = open("/tmp/nda",O_RDONLY, 0);
     if(fifo_fd <= 0) {
         printf("open fifo failed");
         return 0;
