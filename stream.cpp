@@ -29,7 +29,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
                         pipe_line.erase(0, pos + delimiter.length());
                     }
                     cout << "recv: ";
-                    for (int i = 0; i < vals.size(); i++) {
+                    for (int j = 0; j < vals.size(); j++) {
                         cout << vals[i] << ",";
                         if (i == vals.size() - 1) cout << endl;
                     }
