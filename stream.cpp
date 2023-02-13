@@ -18,7 +18,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
         std::string token;
         char buffer[71];
         vector<double> vals;
-        int count;
+        int count = 0;
         int valread = read(pipe_fd, buffer, 71);
         if (valread > 0) {
             for (int i = 0; i < valread; i++) {
