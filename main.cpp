@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     current_time = 0;
     int current_window = 0;
     mtree = new MTreeCorePoint();
-    int sock = init_socket();
+//    int sock = init_socket();
     duration<double, std::milli> all_cost;
     double max_vm;
     int num_windows = 100000;
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
             j["outlier"][ss.str()] = outliers[i];
         }
         string s = j.dump() + "\n";
-        send(sock, s.c_str(), s.size(), 0);
+//        send(sock, s.c_str(), s.size(), 0);
         cout << s;
 //            close(sock);
         sleep(1);
