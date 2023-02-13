@@ -44,6 +44,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
                     Point data(vals);
                     data.arrival_time = current_time + i;
                     datas.push_back(data);
+                    cout << "count:" << count << " length: " << length << endl;
                     count++;
                     pipe_line = "";
                 } else {
