@@ -30,8 +30,8 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
                     }
                     cout << "recv: ";
                     for (int j = 0; j < vals.size(); j++) {
-                        cout << vals[i] << ",";
-                        if (i == vals.size() - 1) cout << endl;
+                        cout << vals[j] << ",";
+                        if (j == vals.size() - 1) cout << endl;
                     }
 //                    if(!getline(file, line)) break;
 //                    while ((pos = line.find(delimiter)) != std::string::npos) {
