@@ -25,7 +25,7 @@ int init_socket() {
 
     // Convert IPv4 and IPv6 addresses from text to binary
     // form
-    if (inet_pton(AF_INET, "192.168.12.97", &serv_addr.sin_addr)
+    if (inet_pton(AF_INET, "169.254.12.97", &serv_addr.sin_addr)
         <= 0) {
         printf(
                 "\nInvalid address/ Address not supported \n");
