@@ -22,7 +22,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
         int valread = read(pipe_fd, buffer, 71);
         if(valread > 0) {
             for(int i=0;i<valread;i++) {
-                if(buffer[i] == '/n') {
+                if(buffer[i] == '\n') {
                         while ((pos = pipe_line.find(delimiter)) != std::string::npos) {
                             token = pipe_line.substr(0, pos);
                             vals.push_back(atof(token.c_str()));
