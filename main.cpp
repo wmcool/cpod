@@ -128,7 +128,6 @@ int main(int argc, char *argv[]) {
 //        send(sock, s.c_str(), s.size(), 0);
         cout << s;
 //            close(sock);
-        sleep(1);
     }
 }
 

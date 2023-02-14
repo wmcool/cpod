@@ -12,7 +12,7 @@ std::string pipe_line;
 
 vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, string delimiter) {
     vector<Point> datas;
-    string line;
+//    string line;
     int count = 0;
     while (true) {
         size_t pos = 0;
