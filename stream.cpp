@@ -23,11 +23,20 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
         if (valread > 0) {
             for (int i = 0; i < valread; i++) {
                 if (buffer[i] == '\n') {
+                    bool flag = true;
+                    long timestamp = 0;
                     while ((pos = pipe_line.find(delimiter)) != std::string::npos) {
                         token = pipe_line.substr(0, pos);
-                        vals.push_back(atof(token.c_str()));
+                        if(!flag) {
+                            vals.push_back(atof(token.c_str()));
+                        } else {
+                            timestamp = atol(token.c_str());
+                            flag = false;
+                        }
                         pipe_line.erase(0, pos + delimiter.length());
                     }
+                    token = pipe_line.substr(0, pos);
+                    vals.push_back(atof(token.c_str()));
                     cout << "recv: ";
                     for (int j = 0; j < vals.size(); j++) {
                         cout << vals[j] << ",";
@@ -39,10 +48,9 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
 //                        vals.push_back(atof(token.c_str()));
 //                        line.erase(0, pos + delimiter.length());
 //                    }
-//                    token = line.substr(0, pos);
-//                    vals.push_back(atof(token.c_str()));
                     Point data(vals);
                     data.arrival_time = current_time + i;
+                    data.timestamp = timestamp;
                     datas.push_back(data);
                     cout << "count:" << count << " length: " << length << endl;
                     count++;

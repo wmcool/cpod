@@ -50,6 +50,7 @@ class Point {
 public:
     vector<double> values;
     int arrival_time;
+    long timestamp;
 
     Point(){
         arrival_time = 0;
