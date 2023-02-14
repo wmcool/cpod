@@ -111,21 +111,13 @@ int main(int argc, char *argv[]) {
             if(i != incoming_data[0].values.size() - 1) cout << ",";
         }
         cout << endl;
-        auto t1 = high_resolution_clock::now();
         vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
-        auto t2 = high_resolution_clock::now();
-
-        /* Getting number of milliseconds as a double. */
-        duration<double, std::milli> ms_double = t2 - t1;
-        all_cost += ms_double;
-
-        std::cout << ms_double.count() << "ms cost\n";
         double vm, rss;
         process_mem_usage(vm, rss);
         if(vm > max_vm) max_vm = vm;
         cout << "VM: " << vm << "KB" << endl;
+        cout << "Num outliers = " << outliers.size() << endl;
         if(outliers.empty()) continue;
-//            cout << "Num outliers = " << outliers.size() << endl;
         for(int i=0;i<outliers.size();i++) {
             stringstream ss;
             ss << outliers[i].timestamp;
