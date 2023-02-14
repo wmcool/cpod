@@ -49,7 +49,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
 //                        line.erase(0, pos + delimiter.length());
 //                    }
                     Point data(vals);
-                    data.arrival_time = current_time + i;
+                    data.arrival_time = current_time + count;
                     data.timestamp = timestamp;
                     datas.push_back(data);
                     cout << "count:" << count << " length: " << length << endl;
