@@ -121,6 +121,7 @@ int main(int argc, char *argv[]) {
         for(int i=0;i<outliers.size();i++) {
             stringstream ss;
             ss << outliers[i].timestamp;
+            cout << outliers[i].timestamp << endl;
             j["outlier"][ss.str()] = outliers[i];
         }
         string s = j.dump() + "\n";

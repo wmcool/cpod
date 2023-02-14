@@ -64,6 +64,7 @@ public:
         }
         va_end(args);
         arrival_time = 0;
+        timestamp = 0;
     }
 
     explicit Point(vector<double> d_values) : values(d_values){
