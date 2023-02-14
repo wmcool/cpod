@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     current_time = 0;
     int current_window = 0;
     mtree = new MTreeCorePoint();
-//    int sock = init_socket();
+    int sock = init_socket();
     duration<double, std::milli> all_cost;
     double max_vm;
     int num_windows = 100000;
@@ -104,19 +104,19 @@ int main(int argc, char *argv[]) {
             incoming_data = get_incoming_data(current_time, fifo_fd, WINDOW, ",");
             current_time += WINDOW;
         }
-        cout << "data size:" << incoming_data.size() << endl;
-        cout << "first data: ";
-        for(int i=0;i<incoming_data[0].values.size();i++) {
-            cout << incoming_data[0].values[i];
-            if(i != incoming_data[0].values.size() - 1) cout << ",";
-        }
-        cout << endl;
+//        cout << "data size:" << incoming_data.size() << endl;
+//        cout << "first data: ";
+//        for(int i=0;i<incoming_data[0].values.size();i++) {
+//            cout << incoming_data[0].values[i];
+//            if(i != incoming_data[0].values.size() - 1) cout << ",";
+//        }
+//        cout << endl;
         vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
         double vm, rss;
         process_mem_usage(vm, rss);
         if(vm > max_vm) max_vm = vm;
-        cout << "VM: " << vm << "KB" << endl;
-        cout << "Num outliers = " << outliers.size() << endl;
+//        cout << "VM: " << vm << "KB" << endl;
+//        cout << "Num outliers = " << outliers.size() << endl;
         if(outliers.empty()) continue;
         for(int i=0;i<outliers.size();i++) {
             stringstream ss;
@@ -124,9 +124,9 @@ int main(int argc, char *argv[]) {
             j["outlier"][ss.str()] = outliers[i];
         }
         string s = j.dump() + "\n";
-//        send(sock, s.c_str(), s.size(), 0);
-        cout << s;
-//            close(sock);
+        send(sock, s.c_str(), s.size(), 0);
+//        cout << s;
+            close(sock);
     }
 }
 

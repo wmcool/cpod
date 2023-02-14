@@ -37,11 +37,11 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
                     }
                     token = pipe_line.substr(0, pos);
                     vals.push_back(atof(token.c_str()));
-                    cout << "recv: ";
-                    for (int j = 0; j < vals.size(); j++) {
-                        cout << vals[j] << ",";
-                        if (j == vals.size() - 1) cout << endl;
-                    }
+//                    cout << "recv: ";
+//                    for (int j = 0; j < vals.size(); j++) {
+//                        cout << vals[j] << ",";
+//                        if (j == vals.size() - 1) cout << endl;
+//                    }
 //                    if(!getline(file, line)) break;
 //                    while ((pos = line.find(delimiter)) != std::string::npos) {
 //                        token = line.substr(0, pos);
@@ -52,7 +52,7 @@ vector<Point> get_incoming_data(int current_time, int pipe_fd, int length, strin
                     data.arrival_time = current_time + count;
                     data.timestamp = timestamp;
                     datas.push_back(data);
-                    cout << "count:" << count << " length: " << length << endl;
+//                    cout << "count:" << count << " length: " << length << endl;
                     count++;
                     pipe_line = "";
                 } else {
