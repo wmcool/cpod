@@ -104,6 +104,13 @@ int main(int argc, char *argv[]) {
             incoming_data = get_incoming_data(current_time, fifo_fd, WINDOW, ",");
             current_time += WINDOW;
         }
+        cout << "data size:" << incoming_data.size() << endl;
+        cout << "first data: ";
+        for(int i=0;i<incoming_data[0].values.size();i++) {
+            cout << incoming_data[0].values[i];
+            if(i != incoming_data[0].values.size() - 1) cout << ",";
+        }
+        cout << endl;
         auto t1 = high_resolution_clock::now();
         vector<Point> outliers = detect_outlier(incoming_data, current_time, WINDOW, SLIDE);
         auto t2 = high_resolution_clock::now();
