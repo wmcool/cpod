@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
         string s = j.dump() + "\n";
         send(sock, s.c_str(), s.size(), 0);
 //        cout << s;
-            close(sock);
+//            close(sock);
     }
 }
 
