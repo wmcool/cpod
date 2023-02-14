@@ -54,6 +54,7 @@ public:
 
     Point(){
         arrival_time = 0;
+        timestamp = 0;
     }
 
     explicit Point(int dimensions, ...) {
@@ -146,6 +147,7 @@ public:
 
     C_Data(Point* d) : Point(d->values) {
         this->arrival_time = d->arrival_time;
+        this->timestamp = d->timestamp;
         this->s_index = arrival_time / SLIDE;
     }
 
@@ -208,6 +210,7 @@ public:
         auto* fuck = new CorePoint();
         fuck->values = values;
         fuck->arrival_time = arrival_time;
+        fuck->timestamp = timestamp;
         fuck->num_succeeding_neighbor = num_succeeding_neighbor;
         fuck->last_prob_left = last_prob_left;
         fuck->last_prob_right = last_prob_right;
